@@ -2,16 +2,17 @@
 <html>
 <head>
 	<title>Select2 Google Fonts</title>
+	<meta charset="utf-8"/>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet">
 	<link href="http://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css" rel="stylesheet">
-	<link href="../src/googleFonts.css" rel="stylesheet">
+	<link href="src/googleFonts.css" rel="stylesheet">
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
-	<script src="../src/googleFonts.js"></script>
+	<script src="src/googleFonts.js"></script>
 	
 	<!--
 	<link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +57,7 @@
 		jQuery(document).ready(function(){
 
 			var x = selectGfont({
-				key: 'You-Google-Fonts-API-Key',
+				key: 'AIzaSyCF-zhBJ1NiNGOewYauHkEQUR7SCd33Jag',
 				containerFonte: '#selectGFont',
 				containerVariante: '#selectGFontVariante',
 				sort: 'popularity',
@@ -77,14 +78,6 @@
 				console.log( 'json', json );
 				dados = json;
 				salvaFonte(fonte, variante, json);
-			};
-
-			// Faz download da fonte
-			function salvaFonte (fonte, variante, json){
-				$.post({
-					url: "../src/downloadFonte.php",
-					data: {fonteNome:fonte, fonteVariante:variante ,fonteFile:json.files[variante] }
-				});
 			};
 
 		});  
