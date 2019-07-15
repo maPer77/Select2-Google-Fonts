@@ -46,12 +46,15 @@
 
 
 .select2-container.selectGFont li span.carregando {
-  /*color:#999;*/
-  color:red;
+  color:#337ab7;
 }
 .select2-container.selectGFont li span.carregado {
   color:#000;
 }
+.select2-container.selectGFont li span.error {
+  color:red;
+}
+
 
 
 .select2-container.selectGFont .select2-results__option i {

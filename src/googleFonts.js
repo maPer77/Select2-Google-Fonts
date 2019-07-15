@@ -170,7 +170,6 @@
       if (config.onSelectFonte) window[config.onSelectFonte](fontes[fonte].family, 'regular', fontes[fonte]);
       $selectFontVariante.data( 'default',  'regular' );
       if (!fonte) { return; };
-      //jQuery(".preview").css('font-family', fontes[fonte].family);
       $selectFont.data( 'default',  fontes[fonte].family );
       carregaFontes({id:fonte, variantes: true});
       carregaVariantes();
@@ -182,8 +181,6 @@
       var fonte = $selectFont.val();
       var variante = jQuery(this).val();
       if (config.onSelectVariante) window[config.onSelectVariante](fontes[fonte].family, variante, fontes[fonte]);
-      //jQuery(".preview").removeClass('sGFfonte-100 sGFfonte-200 sGFfonte-300 sGFfonte-regular sGFfonte-italic sGFfonte-500 sGFfonte-600 sGFfonte-700 sGFfonte-800 sGFfonte-900 sGFfonte-100italic sGFfonte-200italic sGFfonte-300italic sGFfonte-500italic sGFfonte-600italic sGFfonte-700italic sGFfonte-800italic sGFfonte-900italic');
-      //jQuery(".preview").addClass( 'sGFfonte-'+variante );
       $selectFontVariante.data( 'default',  variante );
     });
 
@@ -204,11 +201,10 @@
 
     function carregaFontes (config){
       var posicao = parseInt(config['posicao']) || 0; 
-      var quantidade = config['quantidade'] || 30; 
+      var quantidade = config['quantidade'] || 20; 
       var quantidade = parseInt(quantidade + posicao);
       var id = config['id'] || false;
       var variantes = config['variantes'] || null;
-      //var listaFontes = new Array();
       var textoFontes = '';
       var elementos = false;
       if (id) { // carrega 1 fonte pelo id
@@ -220,10 +216,7 @@
                 element = fontes[id].variants[i];
                 listaVariantes += element + ',';
             }; // endFor
-            //textoFontes = fontes[idFonte].family;
-            //textoFontes = Array.from(new Set(textoFontes)).sort().join('');
           }; //endIf
-          //listaFontes.push( fontes[id].family+listaVariantes );
 
           callWebfont(fontes[id].family+listaVariantes, null, null, id );
 
@@ -235,11 +228,8 @@
               for (var i = 0; i < x; i++) {
                   var element = elementos[i];
                   var idFonte = jQuery(element).data('id');
-                  //carregando[fontes[idFonte].family] = element;
                   if (fontes[idFonte] && fontes[idFonte].carregada != 1) {
-                    jQuery(element).addClass('carregando');
-                    //listaFontes.push( fontes[idFonte].family );
-                    //textoFontes += fontes[idFonte].family;
+                    //jQuery(element).addClass('carregando');
                     fonteNome = fontes[idFonte].family;
                     caracteres = fontes[idFonte].family;
                     caracteres = Array.from(new Set(caracteres)).sort().join('');
@@ -252,38 +242,9 @@
                     delete elementos[i];
                   }; // endif
               }; // endFor
-              // filtra somente os caracteres usados no nome da fonte
-              //textoFontes = Array.from(new Set(textoFontes)).sort().join('');
-
-              
               
       }; //endif
 
-      // Carrega as fontes do google fonts
-     /* if (listaFontes.length) { // se tem fontes na lista
-          (function() {  // funcao automatica
-                WebFont.load({
-                  classes: false,
-                  google: {
-                    families: listaFontes,
-                    text: textoFontes
-                  },
-                  active: function(familyName){
-                    jQuery.each(carregando, function(index, value) {
-                      jQuery(value).removeClass('carregando');
-                    });
-                    carregando = new Object();
-                  },
-                  fontactive: function(familyName){
-                    if ( carregando[familyName] ) {
-                      jQuery(carregando[familyName]).removeClass('carregando');
-                      delete carregando[familyName];
-                    };
-                  }
-                }); // endWebFont
-          }()); //endfunction automatica
-      }; // endIf
-      */
     }; //endFunction carregaFontes
 
 
@@ -297,25 +258,16 @@
                     families: [fonte],
                     text: caracteres
                   },
-                  /*active: function(familyName){
-                    jQuery.each(carregando, function(index, value) {
-                      jQuery(element).removeClass('carregando').addClass('carregado');
-                    });
-                    carregando = new Object();
-                  },*/
                   fontloading: function(familyName){
                     jQuery(element).addClass('carregando');
                   },
                   fontinactive: function(familyName){
                     fontes[idFonte].carregada = 0;
-                    console.error('fontinactive', familyName);
+                    jQuery(element).addClass('error').removeClass('carregando');
+                    //console.error('fontinactive', familyName);
                   },
                   fontactive: function(familyName){
-                      jQuery(element).removeClass('carregando').addClass('carregado');
-                    // if ( carregando[familyName] ) {
-                    //   jQuery(carregando[familyName]).removeClass('carregando');
-                    //   delete carregando[familyName];
-                    // };
+                      jQuery(element).addClass('carregado').removeClass('carregando');
                   }
                 }); // endWebFont
       },0 ); // FIM setTimeout
