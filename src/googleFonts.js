@@ -204,11 +204,11 @@
 
     function carregaFontes (config){
       var posicao = parseInt(config['posicao']) || 0; 
-      var quantidade = config['quantidade'] || 10; 
+      var quantidade = config['quantidade'] || 30; 
       var quantidade = parseInt(quantidade + posicao);
       var id = config['id'] || false;
       var variantes = config['variantes'] || null;
-      var listaFontes = new Array();
+      //var listaFontes = new Array();
       var textoFontes = '';
       var elementos = false;
       if (id) { // carrega 1 fonte pelo id
@@ -223,7 +223,9 @@
             //textoFontes = fontes[idFonte].family;
             //textoFontes = Array.from(new Set(textoFontes)).sort().join('');
           }; //endIf
-          listaFontes.push( fontes[id].family+listaVariantes );
+          //listaFontes.push( fontes[id].family+listaVariantes );
+
+          callWebfont(fontes[id].family+listaVariantes, null, null, id );
 
       } else { // carrega varias fontes a partir da posicao
               var idSelect = $selectFont.prop('id');
@@ -231,25 +233,34 @@
               var x = elementos.length;
               carregando = new Object();
               for (var i = 0; i < x; i++) {
-                var element = elementos[i];
-                var idFonte = jQuery(element).data('id');
-                carregando[fontes[idFonte].family] = element;
-                if (fontes[idFonte] && fontes[idFonte].carregada != 1) {
-                  jQuery(element).addClass('carregando');
-                  listaFontes.push( fontes[idFonte].family );
-                  textoFontes += fontes[idFonte].family;
-                  fontes[idFonte].carregada = 1;
-                } else {
-                  delete elementos[i];
-                }; // endif
+                  var element = elementos[i];
+                  var idFonte = jQuery(element).data('id');
+                  //carregando[fontes[idFonte].family] = element;
+                  if (fontes[idFonte] && fontes[idFonte].carregada != 1) {
+                    jQuery(element).addClass('carregando');
+                    //listaFontes.push( fontes[idFonte].family );
+                    //textoFontes += fontes[idFonte].family;
+                    fonteNome = fontes[idFonte].family;
+                    caracteres = fontes[idFonte].family;
+                    caracteres = Array.from(new Set(caracteres)).sort().join('');
+                    if( fontes[idFonte].variants.includes('regular') == false ) {
+                      fonteNome += ':' + fontes[idFonte].variants[0]
+                    };
+                    fontes[idFonte].carregada = 1;
+                    callWebfont(fonteNome ,caracteres, element, idFonte);
+                  } else {
+                    delete elementos[i];
+                  }; // endif
               }; // endFor
               // filtra somente os caracteres usados no nome da fonte
-              textoFontes = Array.from(new Set(textoFontes)).sort().join('');
+              //textoFontes = Array.from(new Set(textoFontes)).sort().join('');
+
+              
               
       }; //endif
 
       // Carrega as fontes do google fonts
-      if (listaFontes.length) { // se tem fontes na lista
+     /* if (listaFontes.length) { // se tem fontes na lista
           (function() {  // funcao automatica
                 WebFont.load({
                   classes: false,
@@ -272,8 +283,44 @@
                 }); // endWebFont
           }()); //endfunction automatica
       }; // endIf
-
+      */
     }; //endFunction carregaFontes
 
+
+
+
+    function callWebfont (fonte, caracteres=null, element=null, idFonte=null){
+      setTimeout(function() { 
+      WebFont.load({
+                  classes: false,
+                  google: {
+                    families: [fonte],
+                    text: caracteres
+                  },
+                  /*active: function(familyName){
+                    jQuery.each(carregando, function(index, value) {
+                      jQuery(element).removeClass('carregando').addClass('carregado');
+                    });
+                    carregando = new Object();
+                  },*/
+                  fontloading: function(familyName){
+                    jQuery(element).addClass('carregando');
+                  },
+                  fontinactive: function(familyName){
+                    fontes[idFonte].carregada = 0;
+                    console.error('fontinactive', familyName);
+                  },
+                  fontactive: function(familyName){
+                      jQuery(element).removeClass('carregando').addClass('carregado');
+                    // if ( carregando[familyName] ) {
+                    //   jQuery(carregando[familyName]).removeClass('carregando');
+                    //   delete carregando[familyName];
+                    // };
+                  }
+                }); // endWebFont
+      },0 ); // FIM setTimeout
+
+
+    }; //endFunction callWebfont
     
 }; // END selectGfont
