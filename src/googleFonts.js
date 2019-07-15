@@ -150,7 +150,7 @@
     $selectFont.one("select2:open",function(){
       $selectFontResult.scroll(function(event) {
         clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(function() { carregaFontesScroll(); }, 300);
+        scrollTimer = setTimeout(function() { carregaFontesScroll(); }, 100);
       })
     }); 
 
@@ -160,7 +160,7 @@
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(function() {
         carregaFontesScroll();
-      }, 200);
+      }, 100);
     });
 
 
