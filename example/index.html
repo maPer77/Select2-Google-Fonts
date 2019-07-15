@@ -3,6 +3,7 @@
 <head>
 	<title>Select2 Google Fonts</title>
 	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet">
 	<link href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css" rel="stylesheet">
@@ -31,7 +32,7 @@
 	<div class="row justify-content-center">
 		<!-- Fonte GOOGLE -->
 		<div class="col-md-12 col-lg-10 col-xl-8">
-			<label><span class="fontesTotal"></span> Google Fontes</label>
+			<label><span class="fontesTotal"></span> Google Fonts</label>
 			<div class="input-group input-group-lg">
 				<select id='selectGFont' data-default='Play' class="form-control invisible"></select>
 				<div class="input-group-append">
@@ -57,10 +58,10 @@
 		jQuery(document).ready(function(){
 
 			var x = selectGfont({
-				key: 'You-Google-Fonts-API-Key',
+				key: 'AIzaSyCF-zhBJ1NiNGOewYauHkEQUR7SCd33Jag',
 				containerFonte: '#selectGFont',
 				containerVariante: '#selectGFontVariante',
-				sort: 'popularity',
+				sort: 'alpha',
 				onSelectFonte: 'sGFselecionado',
 				onSelectVariante: 'sGFselecionado',
 			});

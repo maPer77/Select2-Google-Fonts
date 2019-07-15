@@ -1,77 +1,58 @@
-/*#selectGFontContainer .select2-container, #selectGFontVarianteContainer .select2-container {
-  z-index: 10;
-}*/
+.select2-container.selectGFont .select2-results .select2-results__options {
+  min-height: 300px;
+  max-height: 70vh;
+}
 
-/*#select2-selectGFont-results .select2-results__option {
+
+.select2-container.selectGFont .select2-results .select2-results__option {
   font-size: 1.9em;
+  color:#666;
   height: 57px;
   overflow: hidden;
-}*/
-      .select2-container.selectGFont .select2-results__option {
-        font-size: 1.9em;
-        height: 57px;
-        overflow: hidden;
-      }
+}
 
 
-
-
-.select2-container.selectGFontVariante .select2-results__option {
+.select2-container.selectGFontVariante .select2-results .select2-results__option {
   font-size: 1.4em;
   height: 45px;
   overflow: hidden;
 }
 
 
-
-
-/*#select2-selectGFont-results .select2-results__option {
+.select2-container.selectGFont .select2-results__option {
   position: relative;
-}*/
-      .select2-container.selectGFont .select2-results__option {
-        position: relative;
-      }
+}
 
-/*#select2-selectGFont-results .select2-results__option .select2FontName, #select2-selectGFont-container .select2FontName {
+
+.select2-container.selectGFont .select2-results__option .select2FontName, .select2.selectGFont .select2-selection__rendered .select2FontName {
   position: absolute;
   font-size: 12px;
   top: 0px;
   right: 5px;
   color: #999;
   float: right;
-}*/
-      .select2-container.selectGFont .select2-results__option .select2FontName, .select2.selectGFont .select2-selection__rendered .select2FontName {
-        position: absolute;
-        font-size: 12px;
-        top: 0px;
-        right: 5px;
-        color: #999;
-        float: right;
-      }
+}
 
 
+.select2-container.selectGFont .select2-results__option:hover .select2FontName,
+.select2-container.selectGFont .select2-results__option:hover span {
+  color: #FFF !important;
+}
 
 
-      .select2-container.selectGFont .select2-results__option:hover .select2FontName,
-      .select2-container.selectGFont .select2-results__option:hover i {
-        color: #FFF;
-      }
-
-
-
-
-/*#select2-selectGFont-container .select2FontName {
+.select2.selectGFont .select2-selection__rendered .select2FontName {
   right: 40px;
-}*/
-      .select2.selectGFont .select2-selection__rendered .select2FontName {
-        right: 40px;
-      }
-
+}
 
 
 .select2-container.selectGFont li span.carregando {
-  color:#999;
+  /*color:#999;*/
+  color:red;
 }
+.select2-container.selectGFont li span.carregado {
+  color:#000;
+}
+
 
 .select2-container.selectGFont .select2-results__option i {
   font-size: 16px;
@@ -80,20 +61,28 @@
   float: right;
   color:#808080;
 }
+
+
 .select2.selectGFont .select2-selection {
   border-radius: 6px 0px 0px 6px !important;
 }
 
+
 .select2.selectGFont.select2-container--open .select2-selection {
   border-radius: 6px 0px 0px 0px !important;
 }
+
+
 .select2.selectGFontVariante .select2-selection {
   border-radius: 0px 6px 6px 0px !important;
   border-left: 0px !important;
 }
+
+
 .select2.selectGFontVariante.select2-container--open .select2-selection {
   border-radius: 0px 6px 0px 0px !important;
 }
+
 
 .sGFfonte-100        { font-weight: 100; font-style: normal; }
 .varianteNome.sGFfonte-100:after  { content:'Thin'; }
