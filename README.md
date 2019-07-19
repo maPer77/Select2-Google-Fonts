@@ -1,5 +1,7 @@
 # Select2-Google-Fonts
-Select2-Google-Fonts
+Carregue todas as fontes disponíveis na API do google fonts, com preview da fonte e de suas variantes.
+
+![enter image description here](https://maper77.github.io/Select2-Google-Fonts/exemplo.png)
 
 Página de Exemplo:
 https://maper77.github.io/Select2-Google-Fonts/
