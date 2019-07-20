@@ -29,6 +29,7 @@
     var carregando = new Object();
     var $selectFontResult;
 
+
     // carrega fontes do google fonts
     jQuery.ajax({
       //url: "./src/data.json",
