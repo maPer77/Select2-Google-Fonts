@@ -71,7 +71,7 @@
         var fonteId = $selectFont.val();
         carregaFontes({id:fonteId, quantidade:1});
     }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Falha ao carregar dados do Google Fonts...', textStatus, jqXHR.responseJSON.error.message);
+        console.error('Falha ao carregar dados do Google Fonts...', jqXHR.responseJSON.error.message, jqXHR.responseJSON);
         return false;
     });
 
