@@ -19,6 +19,7 @@
     var $key = config.key;
     var $selectFont = jQuery(config.containerFonte);
     $selectFont.after('<div id="selectGFontContainer"></div>');
+    var $selectGFontContainer = $selectFont.nextAll('#selectGFontContainer');
     var $selectFontVariante = jQuery(config.containerVariante);
     $selectFontVariante.after('<div id="selectGFontContainerVariante"></div>');
     var $sort = config.sort || 'popularity';
@@ -45,7 +46,7 @@
         jQuery.each(fontes, function(index, element) {
           var categoria = element.category;
           var text = element.family;
-          var item = {id:index, text:text, categoria:categoria};
+          var item = {id:index, text:text+categoria, view:text, categoria:categoria};
           if (element.family == gFontFamilia) {
               item['selected'] = 'true';
           };
@@ -79,9 +80,9 @@
 
     // formata o select
     function formatSelectFont (state) {
-      if (!state.id) { return state.text; }
-      var $state = "<span data-id=" + state.id + " style='font-family:&apos;" + state.text + "&apos;'>" + state.text + "</span>";
-          $state += "<span class='select2FontName'>" + state.text + " | " + state.categoria;
+      if (!state.id) { return state.view; }
+      var $state = "<span data-id=" + state.id + " style='font-family:&apos;" + state.view + "&apos;'>" + state.view + "</span>";
+          $state += "<span class='select2FontName'>" + state.view + " | " + state.categoria;
           $state += "</span>";
       return jQuery($state);
     };
@@ -155,9 +156,11 @@
       })
     }); 
 
-
+    // ####################################################################################################################################################################################################################################################################
     // carrega fontes filtradas
-    jQuery('#selectGFontContainer .select2-search input').on('input', '.select2-search__field', function() {
+    //jQuery('#selectGFontContainer .select2-search input').on('input', '.select2-search__field', function() {
+    jQuery('#selectGFontContainer .select2-search input').keypress(function() {
+      console.log(this.val());
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(function() {
         carregaFontesScroll();
@@ -223,7 +226,10 @@
 
       } else { // carrega varias fontes a partir da posicao
               var idSelect = $selectFont.prop('id');
-              elementos = jQuery("#select2-"+idSelect+"-results li:nth-child(n+"+posicao+"):nth-child(-n+"+quantidade+") > span:first-child");
+              //elementos = jQuery(" #select2-"+idSelect+"-results li:nth-child(n+"+posicao+"):nth-child(-n+"+quantidade+") > span:first-child");
+              elementos = $selectGFontContainer
+                          .find("#select2-"+idSelect+"-results li:nth-child(n+"+posicao+"):nth-child(-n+"+quantidade+") > span:first-child")
+                          .addClass('carregando');
               var x = elementos.length;
               carregando = new Object();
               for (var i = 0; i < x; i++) {
@@ -240,6 +246,7 @@
                     fontes[idFonte].carregada = 1;
                     callWebfont(fonteNome ,caracteres, element, idFonte);
                   } else {
+                    jQuery(element).removeClass('carregando');
                     delete elementos[i];
                   }; // endif
               }; // endFor
@@ -252,7 +259,7 @@
 
 
     function callWebfont (fonte, caracteres=null, element=null, idFonte=null){
-      setTimeout(function() { 
+      //setTimeout(function() { 
       WebFont.load({
                   classes: false,
                   google: {
@@ -260,18 +267,18 @@
                     text: caracteres
                   },
                   fontloading: function(familyName){
-                    jQuery(element).addClass('carregando');
+                    //jQuery(element).addClass('carregando');
                   },
                   fontinactive: function(familyName){
                     fontes[idFonte].carregada = 0;
-                    jQuery(element).addClass('error').removeClass('carregando');
-                    //console.error('fontinactive', familyName);
+                    jQuery(element).removeClass('carregando').addClass('error');
+                    console.error('fontinactive', familyName);
                   },
                   fontactive: function(familyName){
-                      jQuery(element).addClass('carregado').removeClass('carregando');
+                      jQuery(element).removeClass('carregando');
                   }
                 }); // endWebFont
-      },0 ); // FIM setTimeout
+      //},0 ); // FIM setTimeout
 
 
     }; //endFunction callWebfont

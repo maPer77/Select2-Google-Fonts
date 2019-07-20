@@ -6,7 +6,7 @@
 
 .select2-container.selectGFont .select2-results .select2-results__option {
   font-size: 1.9em;
-  color:#666;
+  color:#000;
   height: 57px;
   overflow: hidden;
 }
@@ -48,9 +48,8 @@
 .select2-container.selectGFont li span.carregando {
   color:#337ab7;
 }
-.select2-container.selectGFont li span.carregado {
-  color:#000;
-}
+
+
 .select2-container.selectGFont li span.error {
   color:red;
 }
@@ -136,7 +135,7 @@
   margin-top: -10px;
   margin-left: -10px;
   border-radius: 50%;
-  border-top: 2px solid #999;
+  border-top: 2px solid #337ab7;
   border-right: 2px solid transparent;
   animation: spinner .6s linear infinite;
 }
