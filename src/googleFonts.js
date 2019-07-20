@@ -29,7 +29,6 @@
     var carregando = new Object();
     var $selectFontResult;
 
-
     // carrega fontes do google fonts
     jQuery.ajax({
       //url: "./src/data.json",
@@ -70,10 +69,11 @@
 
         var fonteId = $selectFont.val();
         carregaFontes({id:fonteId, quantidade:1});
-    }).fail(function(jqXHR, textStatus) {
-        console.error('Falha ao carregar dados do Google Fonts...', textStatus);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Falha ao carregar dados do Google Fonts...', textStatus, jqXHR.responseJSON.error.message);
         return false;
     });
+
 
 
     // formata o select
