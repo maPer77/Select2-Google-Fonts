@@ -1,3 +1,9 @@
+.select2.selectGFont { width: calc(100% - 190px) !important; }
+.select2.selectGFontVariante { width: 190px !important; }
+
+
+
+
 .select2-container.selectGFont .select2-results .select2-results__options {
   min-height: 300px;
   max-height: 70vh;
@@ -34,8 +40,8 @@
 }
 
 
-.select2-container.selectGFont .select2-results__option:hover .select2FontName,
-.select2-container.selectGFont .select2-results__option:hover span {
+.select2-container.selectGFont .select2-results__option--highlighted .select2FontName,
+.select2-container.selectGFont .select2-results__option--highlighted span {
   color: #FFF !important;
 }
 
@@ -124,7 +130,7 @@
 .varianteNome.sGFfonte-900italic:after  { content:'Black Italic'; }
 
  
-.carregando:before {
+.select2-container.selectGFont .select2-results__option .carregando:before {
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -137,8 +143,24 @@
   border-radius: 50%;
   border-top: 2px solid #337ab7;
   border-right: 2px solid transparent;
-  animation: spinner .6s linear infinite;
+  animation: selectGFontSpinner .6s linear infinite;
 }
-@keyframes spinner {
+.select2-container.selectGFont .select2-results__option--highlighted .carregando:before {
+  border-top: 2px solid #FFF;
+}
+@keyframes selectGFontSpinner {
   to {transform: rotate(360deg);}
+}
+
+
+@media (max-width: 576px) {
+  .select2.selectGFont { width: calc(100% - 140px) !important; }
+  .select2.selectGFontVariante { width: 140px !important; }
+}
+@media (max-width: 320px) {
+  .select2.selectGFont { width: calc(100% - 110px) !important; }
+  .select2.selectGFontVariante { width: 110px !important; }
+  .select2.selectGFont .select2-selection__rendered .select2FontName {
+    right: 5px;
+  }
 }
