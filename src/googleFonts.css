@@ -124,7 +124,7 @@
 .varianteNome.sGFfonte-900italic:after  { content:'Black Italic'; }
 
  
-.carregando:before {
+.select2-container.selectGFont .select2-results__option .carregando:before {
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -137,8 +137,11 @@
   border-radius: 50%;
   border-top: 2px solid #337ab7;
   border-right: 2px solid transparent;
-  animation: spinner .6s linear infinite;
+  animation: selectGFontSpinner .6s linear infinite;
 }
-@keyframes spinner {
+.select2-container.selectGFont .select2-results__option:hover .carregando:before {
+  border-top: 2px solid #FFF;
+}
+@keyframes selectGFontSpinner {
   to {transform: rotate(360deg);}
 }
