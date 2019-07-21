@@ -156,16 +156,18 @@
       })
     }); 
 
-    // ####################################################################################################################################################################################################################################################################
+
+    
     // carrega fontes filtradas
-    //jQuery('#selectGFontContainer .select2-search input').on('input', '.select2-search__field', function() {
-    jQuery('#selectGFontContainer .select2-search input').keypress(function() {
-      console.log(this.val());
+    $selectGFontContainer.on('keypress', '.select2-search .select2-search__field', function (e) {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(function() {
+        console.log('keypress');
         carregaFontesScroll();
-      }, 100);
+      }, 200);
     });
+
+
 
 
     // quando seleciona uma fonte
