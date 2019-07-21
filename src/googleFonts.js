@@ -1,19 +1,4 @@
- selectGfont = function (config){
-
-    // verifica de foi informado os dados obrigatórios
-    if (!config.key) {
-      console.error('Informe API key');
-      return false;
-    }
-    if (!config.containerFonte) {
-      console.error('Informe containerFonte');
-      return false;
-    }
-    if (!config.containerVariante) {
-      console.error('Informe containerVariante');
-      return false;
-    }
-
+ selectGfont =  function (config){
 
     // inicia variaveis
     var $key = config.key;
@@ -30,53 +15,66 @@
     var carregando = new Object();
     var $selectFontResult;
 
+    callback = (resolve, reject) => {
 
-    // carrega fontes do google fonts
-    jQuery.ajax({
-      //url: "./src/data.json",
-      url: 'https://www.googleapis.com/webfonts/v1/webfonts',
-      data: {sort:$sort, key:$key},
-      dataType: 'json'
-    }).done(function(data) {
-        fontes = data.items;
-        data = undefined;
-        jQuery('.fontesTotal').text(fontes.length);
-        var gFontFamilia = $selectFont.data('default');
-        if (!gFontFamilia) { gFontFamilia = ''; };
-        jQuery.each(fontes, function(index, element) {
-          var categoria = element.category;
-          var text = element.family;
-          var item = {id:index, text:text+categoria, view:text, categoria:categoria};
-          if (element.family == gFontFamilia) {
-              item['selected'] = 'true';
-          };
-          dados.push(item);
-        });
+      // verifica de foi informado os dados obrigatórios
+      if (!config.key) {
+        reject('Informe API key');
+      }
+      if (!config.containerFonte) {
+        reject('Informe containerFonte');
+      }
+      if (!config.containerVariante) {
+        reject('Informe containerVariante');
+      }
 
-        $selectFont.select2({
-          dropdownParent: jQuery('#selectGFontContainer'),
-          allowClear: false,
-          placeholder: 'Selecione uma fonte...',
-          width: 'calc(100% - 190px)',
-          dropdownAutoWidth : true,
-          data: dados,
-          theme: "bootstrap selectGFont",
-          templateResult: formatSelectFont,
-          templateSelection: formatSelectFont,
-          escapeMarkup: function(markup) {return markup;}
-        });
+      // carrega fontes do google fonts
+      jQuery.ajax({
+        url: 'https://www.googleapis.com/webfonts/v1/webfonts',
+        data: {sort:$sort, key:$key},
+        dataType: 'json'
+      }).done(function(data) {
+          fontes = data.items;
+          data = undefined;
+          jQuery('.fontesTotal').text(fontes.length);
+          var gFontFamilia = $selectFont.data('default');
+          if (!gFontFamilia) { gFontFamilia = ''; };
+          jQuery.each(fontes, function(index, element) {
+            var categoria = element.category;
+            var text = element.family;
+            var item = {id:index, text:text+categoria, view:text, categoria:categoria};
+            if (element.family == gFontFamilia) {
+                item['selected'] = 'true';
+            };
+            dados.push(item);
+          });
 
-        // carrega as variantes da fonte selecionada
-        carregaVariantes();
+          $selectFont.select2({
+            dropdownParent: jQuery('#selectGFontContainer'),
+            allowClear: false,
+            placeholder: 'Selecione uma fonte...',
+            dropdownAutoWidth : true,
+            data: dados,
+            theme: "bootstrap selectGFont",
+            templateResult: formatSelectFont,
+            templateSelection: formatSelectFont,
+            escapeMarkup: function(markup) {return markup;}
+          });
 
-        var fonteId = $selectFont.val();
-        carregaFontes({id:fonteId, quantidade:1});
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Falha ao carregar dados do Google Fonts...', jqXHR.responseJSON.error.message, jqXHR.responseJSON);
-        return false;
-    });
+          // carrega as variantes da fonte selecionada
+          carregaVariantes();
 
+          var fonteId = $selectFont.val();
+          carregaFontes({id:fonteId, quantidade:1});
+          resolve();
+      }).fail(function(jqXHR) {
+          console.error(jqXHR.responseJSON || jqXHR);
+          reject('Falha ao carregar dados do Google Fonts...');
+      });
 
+    };
+
+  
 
     // formata o select
     function formatSelectFont (state) {
@@ -109,7 +107,6 @@
           dropdownParent: jQuery('#selectGFontContainerVariante'),
           placeholder: 'Selecione uma opção...',
           minimumResultsForSearch: -1,
-          width: '190px',
           dropdownAutoWidth : true,
           data: dados,
           theme: "bootstrap selectGFontVariante",
@@ -131,6 +128,7 @@
 
     // armazena os resultados e retorna ultima busca
     $selectFont.on('select2:open', function() {
+      console.log('select2:open');
       var idSelect = $selectFont.prop('id');
       $selectFontResult = jQuery("#select2-"+idSelect+"-results");
       setTimeout(function() {
@@ -144,6 +142,8 @@
 
     // guarda string de busca 
     $selectFont.on('select2:closing', function() {
+
+
       currentQuery = jQuery('#selectGFontContainer .select2-search input').val();
     });
 
@@ -254,7 +254,6 @@
               }; // endFor
               
       }; //endif
-
     }; //endFunction carregaFontes
 
 
@@ -284,5 +283,6 @@
 
 
     }; //endFunction callWebfont
-    
+
+    return new Promise(callback);
 }; // END selectGfont
