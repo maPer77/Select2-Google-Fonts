@@ -134,17 +134,21 @@ Neste exemplo a fonte selecionada é passada para ***sGFselecionado*** e esta fu
 <script>
 jQuery(document).ready(function(){
 
-	var x = selectGfont({
+	selectGfont({
 		key: 'You-Google-Fonts-API-Key', 
 		containerFonte: '#selectGFont', 
 		containerVariante: '#selectGFontVariante',
 		sort: 'popularity',
 		onSelectFonte: 'sGFselecionado',
-		onSelectVariante: 'sGFselecionado',
+		onSelectVariante: 'sGFselecionado'
+
+	}).then( function() {
+		console.log('OK');
+
+	}).catch( function(erro) {
+		console.error(erro);
+		
 	});
-	if (x==false) {
-		console.log('Erro !');
-	}
 
 
 	// exemplo de utilização
