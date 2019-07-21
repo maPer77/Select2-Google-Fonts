@@ -128,7 +128,6 @@
 
     // armazena os resultados e retorna ultima busca
     $selectFont.on('select2:open', function() {
-      console.log('select2:open');
       var idSelect = $selectFont.prop('id');
       $selectFontResult = jQuery("#select2-"+idSelect+"-results");
       setTimeout(function() {
@@ -162,7 +161,6 @@
     $selectGFontContainer.on('keypress', '.select2-search .select2-search__field', function (e) {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(function() {
-        console.log('keypress');
         carregaFontesScroll();
       }, 200);
     });
