@@ -1,0 +1,30 @@
+{
+  "name": "Select2-Google-Fonts",
+  "version": "1.0.0",
+  "description": "Carregue todas as fontes disponíveis na API do google fonts, com preview da fonte e de suas variantes.",
+  "main": "example/index.html",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maPer77/Select2-for-Google-Fonts.git"
+  },
+  "keywords": [],
+  "author": "Maicon Perin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maPer77/Select2-for-Google-Fonts/issues"
+  },
+  "homepage": "https://github.com/maPer77/Select2-for-Google-Fonts#readme",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "select2": "^4.0.8",
+    "select2-bootstrap-theme": "0.1.0-beta.10",
+    "webfontloader": "github:typekit/webfontloader"
+  }
+}
