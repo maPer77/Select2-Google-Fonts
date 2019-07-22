@@ -30,23 +30,21 @@
       }).done(function(data) {
           fontes = data.items;
           data = undefined;
-          jQuery('.fontesTotal').text(fontes.length);
+          jQuery('.selectGFontTotal').text(fontes.length);
           var gFontFamilia = $selectFont.data('default');
           if (!gFontFamilia) { gFontFamilia = ''; };
+          
           jQuery.each(fontes, function(index, element) {
             var categoria = element.category;
             var text = element.family;
             var item = {id:index, text:text+categoria, view:text, categoria:categoria};
-            if (element.family == gFontFamilia) {
-                item['selected'] = 'true';
-            };
+            if (element.family == gFontFamilia) item['selected'] = 'true';
             dados.push(item);
           });
 
           $selectFont.select2({
             dropdownParent: jQuery('#selectGFontContainer'),
             allowClear: false,
-            placeholder: 'Selecione uma fonte...',
             dropdownAutoWidth : true,
             data: dados,
             theme: "bootstrap selectGFont",
@@ -97,7 +95,6 @@
       $selectFontVariante.text(''); // Limpa as opcoes anteriores para popular com as opcoes da fonte atual
       $selectFontVariante.select2({
           dropdownParent: jQuery('#selectGFontContainerVariante'),
-          placeholder: 'Selecione uma opção...',
           minimumResultsForSearch: -1,
           dropdownAutoWidth : true,
           data: dados,

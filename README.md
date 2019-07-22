@@ -34,7 +34,7 @@ https://maper77.github.io/Select2-Google-Fonts/
 <div class="row justify-content-center">
 	<!-- Fonte GOOGLE -->
 	<div class="col-md-12 col-lg-10 col-xl-8">
-		<label><span class="fontesTotal"></span> Google Fonts</label>
+		<label><span class="selectGFontTotal"></span> Google Fonts</label>
 		<div class="input-group input-group-lg">
 			<select id='selectGFont' data-default='Play' class="form-control invisible"></select>
 			<div class="input-group-append">
