@@ -1,5 +1,5 @@
 {
-  "name": "Select2-Google-Fonts",
+  "name": "selectGFont",
   "version": "1.0.0",
   "description": "Carregue todas as fontes disponíveis na API do google fonts, com preview da fonte e de suas variantes.",
   "main": "example/index.html",
