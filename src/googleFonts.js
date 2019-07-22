@@ -18,15 +18,9 @@
     callback = (resolve, reject) => {
 
       // verifica de foi informado os dados obrigatórios
-      if (!config.key) {
-        reject('Informe API key');
-      }
-      if (!config.containerFonte) {
-        reject('Informe containerFonte');
-      }
-      if (!config.containerVariante) {
-        reject('Informe containerVariante');
-      }
+      if (!config.key) reject('Informe API key');
+      if (!config.containerFonte) reject('Informe containerFonte');
+      if (!config.containerVariante) reject('Informe containerVariante');
 
       // carrega fontes do google fonts
       jQuery.ajax({
@@ -96,9 +90,7 @@
         jQuery.each(variantes, function(index, element) {
           var text = fonte; 
           var item = {id: element, text: text};
-          if (element == gFontVariante) {
-              item['selected'] = 'true';
-          };
+          if (element == gFontVariante) item['selected'] = 'true';
           dados.push(item);
         });
 
@@ -132,7 +124,7 @@
       $selectFontResult = jQuery("#select2-"+idSelect+"-results");
       setTimeout(function() {
         if(currentQuery && currentQuery.length) {
-          jQuery('#selectGFontContainer .select2-search input').val(currentQuery).trigger('input');
+          $selectGFontContainer.find('.select2-search .select2-search__field').val(currentQuery).trigger('input');
         };
         carregaFontesScroll();
       }, 0);
@@ -141,9 +133,7 @@
 
     // guarda string de busca 
     $selectFont.on('select2:closing', function() {
-
-
-      currentQuery = jQuery('#selectGFontContainer .select2-search input').val();
+      currentQuery = $selectGFontContainer.find('.select2-search .select2-search__field').val();
     });
 
 
@@ -156,7 +146,6 @@
     }); 
 
 
-    
     // carrega fontes filtradas
     $selectGFontContainer.on('keypress', '.select2-search .select2-search__field', function (e) {
       clearTimeout(scrollTimer);
@@ -164,8 +153,6 @@
         carregaFontesScroll();
       }, 200);
     });
-
-
 
 
     // quando seleciona uma fonte
@@ -226,7 +213,6 @@
 
       } else { // carrega varias fontes a partir da posicao
               var idSelect = $selectFont.prop('id');
-              //elementos = jQuery(" #select2-"+idSelect+"-results li:nth-child(n+"+posicao+"):nth-child(-n+"+quantidade+") > span:first-child");
               elementos = $selectGFontContainer
                           .find("#select2-"+idSelect+"-results li:nth-child(n+"+posicao+"):nth-child(-n+"+quantidade+") > span:first-child")
                           .addClass('carregando');
@@ -255,31 +241,21 @@
     }; //endFunction carregaFontes
 
 
-
-
     function callWebfont (fonte, caracteres=null, element=null, idFonte=null){
-      //setTimeout(function() { 
       WebFont.load({
                   classes: false,
                   google: {
                     families: [fonte],
                     text: caracteres
                   },
-                  fontloading: function(familyName){
-                    //jQuery(element).addClass('carregando');
-                  },
                   fontinactive: function(familyName){
                     fontes[idFonte].carregada = 0;
                     jQuery(element).removeClass('carregando').addClass('error');
-                    console.error('fontinactive', familyName);
                   },
                   fontactive: function(familyName){
                       jQuery(element).removeClass('carregando');
                   }
                 }); // endWebFont
-      //},0 ); // FIM setTimeout
-
-
     }; //endFunction callWebfont
 
     return new Promise(callback);
