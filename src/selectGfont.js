@@ -2,11 +2,16 @@
 
     // inicia variaveis
     var $key = config.key;
+
     var $selectFont = jQuery(config.containerFonte);
     $selectFont.after('<div id="selectGFontContainer"></div>');
     var $selectGFontContainer = $selectFont.nextAll('#selectGFontContainer');
+    
     var $selectFontVariante = jQuery(config.containerVariante);
     $selectFontVariante.after('<div id="selectGFontContainerVariante"></div>');
+    var $selectGFontContainerVariante = $selectFontVariante.nextAll('#selectGFontContainerVariante');
+
+    var idSelect;
     var $sort = config.sort || 'popularity';
     var fontes;
     var dados = new Array();
@@ -29,7 +34,6 @@
         dataType: 'json'
       }).done(function(data) {
           fontes = data.items;
-          data = undefined;
           jQuery('.selectGFontTotal').text(fontes.length);
           var gFontFamilia = $selectFont.data('default');
           if (!gFontFamilia) { gFontFamilia = ''; };
@@ -42,21 +46,23 @@
             dados.push(item);
           });
 
+          // monta o select com todas fontes disponíveis
           $selectFont.select2({
-            dropdownParent: jQuery('#selectGFontContainer'),
+            dropdownParent: $selectGFontContainer,
             allowClear: false,
             dropdownAutoWidth : true,
             data: dados,
             theme: "bootstrap selectGFont",
             templateResult: formatSelectFont,
-            templateSelection: formatSelectFont,
-            escapeMarkup: function(markup) {return markup;}
+            templateSelection: formatSelectFont
           });
+          idSelect = $selectFont.prop('id');
 
-          // carrega as variantes da fonte selecionada
+          // monta o select com as variantes da fonte selecionada
           carregaVariantes();
 
           var fonteId = $selectFont.val();
+          // carrega a fonte selecionada como default
           carregaFontes({id:fonteId, quantidade:1});
           resolve();
       }).fail(function(jqXHR) {
@@ -65,7 +71,6 @@
       });
 
     };
-
   
 
     // formata o select
@@ -94,14 +99,13 @@
 
       $selectFontVariante.text(''); // Limpa as opcoes anteriores para popular com as opcoes da fonte atual
       $selectFontVariante.select2({
-          dropdownParent: jQuery('#selectGFontContainerVariante'),
+          dropdownParent: $selectGFontContainerVariante,
           minimumResultsForSearch: -1,
           dropdownAutoWidth : true,
           data: dados,
           theme: "bootstrap selectGFontVariante",
           templateResult: formatSelectFontVariante,
-          templateSelection: formatSelectFontVariante,
-          escapeMarkup: function(markup) {return markup;}
+          templateSelection: formatSelectFontVariante
       });
 
     }; //endFunction carregaVariantes
@@ -115,9 +119,8 @@
     };
 
 
-    // armazena os resultados e retorna ultima busca
+    // armazena os resultados e retorna ultima busca se tiver
     $selectFont.on('select2:open', function() {
-      var idSelect = $selectFont.prop('id');
       $selectFontResult = jQuery("#select2-"+idSelect+"-results");
       setTimeout(function() {
         if(currentQuery && currentQuery.length) {
@@ -128,19 +131,19 @@
     });
 
 
-    // guarda string de busca 
-    $selectFont.on('select2:closing', function() {
-      currentQuery = $selectGFontContainer.find('.select2-search .select2-search__field').val();
-    });
-
-
     // carrega fontes a cada scroll
     $selectFont.one("select2:open",function(){
       $selectFontResult.scroll(function(event) {
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(function() { carregaFontesScroll(); }, 100);
       })
-    }); 
+    });
+
+
+    // guarda string de busca 
+    $selectFont.on('select2:closing', function() {
+      currentQuery = $selectGFontContainer.find('.select2-search .select2-search__field').val();
+    });
 
 
     // carrega fontes filtradas
@@ -245,12 +248,12 @@
                     families: [fonte],
                     text: caracteres
                   },
+                  fontactive: function(familyName){
+                      jQuery(element).removeClass('carregando');
+                  },
                   fontinactive: function(familyName){
                     fontes[idFonte].carregada = 0;
                     jQuery(element).removeClass('carregando').addClass('error');
-                  },
-                  fontactive: function(familyName){
-                      jQuery(element).removeClass('carregando');
                   }
                 }); // endWebFont
     }; //endFunction callWebfont
