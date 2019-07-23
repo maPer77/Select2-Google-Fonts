@@ -222,7 +222,6 @@
                   var element = elementos[i];
                   var idFonte = jQuery(element).data('id');
                   if (fontes[idFonte] && fontes[idFonte].carregada != 1) {
-                    //jQuery(element).addClass('carregando');
                     fonteNome = fontes[idFonte].family;
                     caracteres = fontes[idFonte].family;
                     caracteres = Array.from(new Set(caracteres)).sort().join('');
