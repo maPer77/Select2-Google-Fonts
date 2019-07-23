@@ -1,0 +1,32 @@
+{
+  "name": "selectGFont-gh-pages",
+  "version": "1.0.0",
+  "description": "selectGFont-gh-pages",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "select2": "^4.0.8",
+    "select2-bootstrap-theme": "^0.1.0-beta.10",
+    "selectGFont": "github:maPer77/Select2-Google-Fonts",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciganox/Select2-for-Google-Fonts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ciganox/Select2-for-Google-Fonts/issues"
+  },
+  "homepage": "https://github.com/ciganox/Select2-for-Google-Fonts#readme"
+}
