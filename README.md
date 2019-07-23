@@ -13,6 +13,11 @@ https://maper77.github.io/Select2-Google-Fonts/
 >  - select2 
 >  - select2-bootstrap-theme
 
+
+## Instalação:
+`npm add maPer77/Select2-Google-Fonts`
+
+
 ## Como usar:
 
 **1 - Importe no HEAD:**
